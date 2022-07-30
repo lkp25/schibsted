@@ -10,7 +10,9 @@ export interface Article {
   category: string;
   title: string;
   preamble: string;
-  dateInMs?: number;
+}
+interface ArticleWithDateInMs extends Article {
+  dateInMs: number;
 }
 interface SuccessfulApiResponse {
   articles: Article[];
@@ -23,9 +25,12 @@ const Articles: FC = () => {
   //two categories are known for now, more can easily be added in the future
   const KNOWN_CATEGORIES = ['sport', 'fashion'];
   const [categories, setCategories] = useState<string[]>([]);
-  const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>([]);
+  const [articlesToDisplay, setArticlesToDisplay] = useState<
+    ArticleWithDateInMs[]
+  >([]);
   const [apiResponseError, setApiResponseError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [sortState, setSortState] = useState<string>('desc');
 
   useEffect(() => {
     setApiResponseError(null);
@@ -33,7 +38,7 @@ const Articles: FC = () => {
   }, [categories]);
 
   const fetchArticles = (categories: string[]): void => {
-    let articlesToDisplay: Article[] = [];
+    let articlesToDisplay: ArticleWithDateInMs[] = [];
     setIsLoading(true);
     //create a separate request for every chosen category of articles:
     const arrayOfRequests = categories.map((category) => {
@@ -52,7 +57,8 @@ const Articles: FC = () => {
         })
         .then((data: SuccessfulApiResponse) => {
           // combine previous articles with ones from this API call and
-          // add dateInMs property to each article to allow easy sorting by date:
+          // add dateInMs property to each article to allow easy sorting by date
+          // and perform default descending sort (from newest to oldest)
           articlesToDisplay = [...articlesToDisplay, ...data.articles].map(
             (art) => {
               return {
@@ -61,21 +67,31 @@ const Articles: FC = () => {
               };
             },
           );
-
-          console.log(articlesToDisplay);
         });
     });
 
-    //Execute all requests - if any of them fails, show error msg to the user
+    //Execute all requests
     Promise.all(arrayOfRequests)
       .then(() => {
+        //all successful - sort them
         setArticlesToDisplay(articlesToDisplay);
         setIsLoading(false);
       })
+      //- if any of the requests fails, show error msg to the user
       .catch((err: ErrorApiResponse) => {
         setApiResponseError(err.message);
         setIsLoading(false);
       });
+  };
+
+  const getSortMethod = () => {
+    if (sortState === 'asc') {
+      return (a: ArticleWithDateInMs, b: ArticleWithDateInMs) =>
+        b.dateInMs - a.dateInMs;
+    } else {
+      return (a: ArticleWithDateInMs, b: ArticleWithDateInMs) =>
+        a.dateInMs - b.dateInMs;
+    }
   };
 
   return (
@@ -116,9 +132,16 @@ const Articles: FC = () => {
       <div>
         <label htmlFor="date_select">
           Sort by date:
-          <select name="date_select" id="date_select">
-            <option value="ascending">newest first</option>
-            <option value="descending">oldest first</option>
+          <select
+            defaultValue={'desc'}
+            name="date_select"
+            id="date_select"
+            onChange={(event) => {
+              setSortState(event.target.value);
+            }}
+          >
+            <option value="asc">newest first</option>
+            <option value="desc">oldest first</option>
           </select>
         </label>
       </div>
@@ -130,7 +153,7 @@ const Articles: FC = () => {
         <ErrorMessage message={apiResponseError} />
       ) : (
         <>
-          {articlesToDisplay.map((article) => {
+          {articlesToDisplay.sort(getSortMethod()).map((article) => {
             return <ArticlePreview key={article.id} article={article} />;
           })}
         </>
