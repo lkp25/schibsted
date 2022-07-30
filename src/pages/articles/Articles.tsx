@@ -1,6 +1,35 @@
+import { FC, useState, useEffect } from 'react';
 import Article from '../../components/article';
 
-const Articles = () => {
+interface Article {
+  id: number;
+  date: string;
+  image: string;
+  category: string;
+  title: string;
+  preamble: string;
+}
+
+const fetchArticles = (categories: string[]): Article[] => {
+  const articlesToDisplay = [];
+  categories.forEach(async (category) => {
+    const response = await window.fetch(
+      `http://localhost:6010/articles/${category}`,
+    );
+    const data = await response.json();
+    console.log(data);
+  });
+  return [];
+};
+
+const Articles: FC = () => {
+  const [categories, setCategories] = useState<string[]>(['sport']);
+  const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>([]);
+
+  useEffect(() => {
+    fetchArticles(categories);
+  }, [categories]);
+
   return (
     <>
       <div>
