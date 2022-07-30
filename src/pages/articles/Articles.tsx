@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import ArticlePreview from '../../components/articlePreview';
 import ErrorMessage from '../../components/errorMessage';
+import { getDateInMiliseconds } from '../../utils';
 
 export interface Article {
   id: number;
@@ -9,6 +10,7 @@ export interface Article {
   category: string;
   title: string;
   preamble: string;
+  dateInMs?: number;
 }
 interface SuccessfulApiResponse {
   articles: Article[];
@@ -49,7 +51,17 @@ const Articles: FC = () => {
           return res.json();
         })
         .then((data: SuccessfulApiResponse) => {
-          articlesToDisplay = [...articlesToDisplay, ...data.articles];
+          // combine previous articles with ones from this API call and
+          // add dateInMs property to each article to allow easy sorting by date:
+          articlesToDisplay = [...articlesToDisplay, ...data.articles].map(
+            (art) => {
+              return {
+                ...art,
+                dateInMs: getDateInMiliseconds(art.date),
+              };
+            },
+          );
+
           console.log(articlesToDisplay);
         });
     });
