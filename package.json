@@ -1,5 +1,5 @@
 {
-  "name": "shibsted_assignment",
+  "name": "schibsted_assignment",
   "version": "1.0.0",
   "description": "solution for Shibsted Assignment 2022",
   "scripts": {
@@ -13,7 +13,7 @@
     "Articles",
     "Fashion",
     "Sport",
-    "Shibsted"
+    "Schibsted"
   ],
   "author": "lkp25",
   "license": "MIT",

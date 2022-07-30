@@ -1,10 +1,9 @@
-import { Counter } from './Counter';
+import Articles from './pages/articles';
 
 export const App = () => {
   return (
     <>
-      <h1>Hello world</h1>
-      <Counter />
+      <Articles />
     </>
   );
 };
