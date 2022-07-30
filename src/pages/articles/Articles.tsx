@@ -17,6 +17,7 @@ const Articles: FC = () => {
   const [categories, setCategories] = useState<string[]>(['sport', 'fashion']);
   const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>([]);
   const [apiResponseError, setApiResponseError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (categories.length > 0) {
@@ -26,7 +27,7 @@ const Articles: FC = () => {
 
   const fetchArticles = (categories: string[]): void => {
     let articlesToDisplay: Article[] = [];
-
+    setIsLoading(true);
     //create a separate request for every chosen category of articles:
     const arrayOfRequests = categories.map((category) => {
       return window
@@ -48,18 +49,21 @@ const Articles: FC = () => {
         });
     });
 
-    //Execute all requests
+    //Execute all requests - if any of them fails, show error msg to the user
     Promise.all(arrayOfRequests)
       .then(() => {
         setArticlesToDisplay(articlesToDisplay);
+        setIsLoading(false);
       })
       .catch((err) => {
         setApiResponseError(err.message);
+        setIsLoading(false);
       });
   };
 
   return (
     <>
+      {isLoading ? <div>loading</div> : null}
       {articlesToDisplay.length > 0 ? (
         <div>articles fetched sucessfully</div>
       ) : null}
