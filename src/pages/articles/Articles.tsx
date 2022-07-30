@@ -1,7 +1,8 @@
 import { FC, useState, useEffect } from 'react';
-import Article from '../../components/article';
+import ArticlePreview from '../../components/articlePreview';
+import ErrorMessage from '../../components/errorMessage';
 
-interface Article {
+export interface Article {
   id: number;
   date: string;
   image: string;
@@ -67,13 +68,10 @@ const Articles: FC = () => {
 
   return (
     <>
-      {/* add a CSS spinner here */}
-      {isLoading ? <div>loading</div> : null}
+      <h1>Schibsted Articles</h1>
 
       <div>
-        <h1>Schibsted Articles</h1>
-        <div>data sources</div>
-
+        <div>data sources:</div>
         {/* dynamically display checkboxes for all categories */}
         <ul>
           {KNOWN_CATEGORIES.map((category) => {
@@ -112,11 +110,19 @@ const Articles: FC = () => {
           </select>
         </label>
       </div>
-      <section>
-        <Article />
-        <Article />
-        <Article />
-      </section>
+
+      {/* add a CSS spinner here */}
+      {isLoading ? (
+        <div>loading</div>
+      ) : apiResponseError ? (
+        <ErrorMessage message={apiResponseError} />
+      ) : (
+        <>
+          {articlesToDisplay.map((article) => {
+            return <ArticlePreview key={article.id} article={article} />;
+          })}
+        </>
+      )}
     </>
   );
 };
