@@ -1,3 +1,5 @@
+import Article from '../../components/article';
+
 const Articles = () => {
   return (
     <>
@@ -37,6 +39,11 @@ const Articles = () => {
           </select>
         </label>
       </div>
+      <section>
+        <Article />
+        <Article />
+        <Article />
+      </section>
     </>
   );
 };
