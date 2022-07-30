@@ -9,29 +9,61 @@ interface Article {
   title: string;
   preamble: string;
 }
-
-const fetchArticles = (categories: string[]): Article[] => {
-  const articlesToDisplay = [];
-  categories.forEach(async (category) => {
-    const response = await window.fetch(
-      `http://localhost:6010/articles/${category}`,
-    );
-    const data = await response.json();
-    console.log(data);
-  });
-  return [];
-};
+interface SuccessfulApiResponse {
+  articles: Article[];
+}
 
 const Articles: FC = () => {
-  const [categories, setCategories] = useState<string[]>(['sport']);
+  const [categories, setCategories] = useState<string[]>(['sport', 'fashion']);
   const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>([]);
+  const [apiResponseError, setApiResponseError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchArticles(categories);
+    if (categories.length > 0) {
+      fetchArticles(categories);
+    }
   }, [categories]);
+
+  const fetchArticles = (categories: string[]): void => {
+    let articlesToDisplay: Article[] = [];
+
+    //create a separate request for every chosen category of articles:
+    const arrayOfRequests = categories.map((category) => {
+      return window
+        .fetch(`http://localhost:6010/articles/${category}`)
+        .then((res) => {
+          if (res.status === 404) {
+            throw new Error(`category ${category} not found`);
+          }
+          if (res.status === 500) {
+            throw new Error(
+              'at least one of the categories could not be fetched from server. Please refresh to try again',
+            );
+          }
+          return res.json();
+        })
+        .then((data: SuccessfulApiResponse) => {
+          articlesToDisplay = [...articlesToDisplay, ...data.articles];
+          console.log(articlesToDisplay);
+        });
+    });
+
+    //Execute all requests
+    Promise.all(arrayOfRequests)
+      .then(() => {
+        setArticlesToDisplay(articlesToDisplay);
+      })
+      .catch((err) => {
+        setApiResponseError(err.message);
+      });
+  };
 
   return (
     <>
+      {articlesToDisplay.length > 0 ? (
+        <div>articles fetched sucessfully</div>
+      ) : null}
+      {apiResponseError ? <div>{apiResponseError}</div> : null}
       <div>
         <h1>Schibsted Articles</h1>
         <div>data sources</div>
