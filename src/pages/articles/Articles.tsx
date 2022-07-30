@@ -1,4 +1,4 @@
-const Counter = () => {
+const Articles = () => {
   return (
     <>
       <div>
@@ -41,4 +41,4 @@ const Counter = () => {
   );
 };
 
-export default Counter;
+export default Articles;
