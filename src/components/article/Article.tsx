@@ -1,7 +1,10 @@
 const Article = () => {
   return (
     <>
-      <div> single article</div>
+      <div> title of article</div>
+      <div> date of article</div>
+      <div> img</div>
+      <div> preamble</div>
     </>
   );
 };

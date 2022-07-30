@@ -12,17 +12,21 @@ interface Article {
 interface SuccessfulApiResponse {
   articles: Article[];
 }
+interface ErrorApiResponse {
+  message: string;
+}
 
 const Articles: FC = () => {
-  const [categories, setCategories] = useState<string[]>(['sport', 'fashion']);
+  //two categories are known for now, more can easily be added in the future
+  const KNOWN_CATEGORIES = ['sport', 'fashion'];
+  const [categories, setCategories] = useState<string[]>([]);
   const [articlesToDisplay, setArticlesToDisplay] = useState<Article[]>([]);
   const [apiResponseError, setApiResponseError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (categories.length > 0) {
-      fetchArticles(categories);
-    }
+    setApiResponseError(null);
+    fetchArticles(categories);
   }, [categories]);
 
   const fetchArticles = (categories: string[]): void => {
@@ -55,7 +59,7 @@ const Articles: FC = () => {
         setArticlesToDisplay(articlesToDisplay);
         setIsLoading(false);
       })
-      .catch((err) => {
+      .catch((err: ErrorApiResponse) => {
         setApiResponseError(err.message);
         setIsLoading(false);
       });
@@ -63,36 +67,40 @@ const Articles: FC = () => {
 
   return (
     <>
+      {/* add a CSS spinner here */}
       {isLoading ? <div>loading</div> : null}
-      {articlesToDisplay.length > 0 ? (
-        <div>articles fetched sucessfully</div>
-      ) : null}
-      {apiResponseError ? <div>{apiResponseError}</div> : null}
+
       <div>
         <h1>Schibsted Articles</h1>
         <div>data sources</div>
 
+        {/* dynamically display checkboxes for all categories */}
         <ul>
-          <li>
-            <label htmlFor="fashion_checkbox">
-              <input
-                type="checkbox"
-                name="articles_filter"
-                id="fashion_checkbox"
-              />
-              Fashion
-            </label>
-          </li>
-          <li>
-            <label htmlFor="sport_checkbox">
-              <input
-                type="checkbox"
-                name="articles_filter"
-                id="sport_checkbox"
-              />
-            </label>
-            Sport
-          </li>
+          {KNOWN_CATEGORIES.map((category) => {
+            return (
+              <li key={category}>
+                <label htmlFor={`${category}_checkbox`}>
+                  <input
+                    value={category}
+                    onChange={(event) => {
+                      const currentCategory = event.target.value;
+                      setCategories(
+                        categories.includes(currentCategory)
+                          ? categories.filter(
+                              (category) => category !== currentCategory,
+                            )
+                          : [...categories, currentCategory],
+                      );
+                    }}
+                    type="checkbox"
+                    name="categories_filter"
+                    id={`${category}_checkbox`}
+                  />
+                  {category}
+                </label>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div>
