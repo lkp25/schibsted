@@ -10,6 +10,7 @@
   --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
+  --lightGray: rgb(201, 200, 200);
   --gray: #8f8b8b;
   --gray-dark: #343a40;
   --primary: #007bff;
@@ -45,10 +46,12 @@ body {
 .custom_checkbox_container {
   display: flex;
   align-items: center;
+  margin-top: 0.3rem;
 }
 .custom_checkbox_container label {
   cursor: pointer;
   display: flex;
+  align-items: center;
   font-style: normal;
   letter-spacing: var(--spacing);
   padding: 0.2rem 0;
@@ -62,8 +65,8 @@ body {
 
 .custom_checkbox_container label::before {
   content: '';
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border: 1px solid var(--gray);
   border-radius: 3px;
   margin-right: 0.5rem;
@@ -82,4 +85,41 @@ body {
   justify-content: center;
   align-items: center;
   color: var(--white);
+}
+
+/* custom select element styling */
+.custom_select_container {
+  margin-top: 0.3rem;
+  position: relative;
+}
+.custom_select {
+  padding: 0.1rem 1.5rem 0.1rem 0.4rem;
+  border: 1px solid var(--lightGray);
+  border-radius: 3px;
+}
+.custom_select:focus {
+  background-color: var(--lightGray);
+  color: var(--white);
+}
+.custom_select_arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray);
+  width: 1.2rem;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 3px;
+}
+.select_sort_icon {
+  width: 10px;
+}
+
+/* default SVG icon components styling */
+.svg_icon_default {
+  width: 10px;
+  fill: var(--white);
 }

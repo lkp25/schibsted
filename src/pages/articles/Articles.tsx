@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from 'react';
+import SortIcon from '../../assets/icons/SortIcon';
 import ArticlePreview from '../../components/articlePreview';
 import ErrorMessage from '../../components/errorMessage';
 import { getDateInMiliseconds } from '../../utils';
@@ -134,9 +135,10 @@ const Articles: FC = () => {
         </div>
         <div className="articles__date_sorting">
           <span className="span_bold"> Sort by date: </span>
-          <label htmlFor="date_select">
-            <br />
+          <br />
+          <div className="custom_select_container">
             <select
+              className="custom_select"
               defaultValue={'desc'}
               name="date_select"
               id="date_select"
@@ -147,7 +149,10 @@ const Articles: FC = () => {
               <option value="asc">newest first</option>
               <option value="desc">oldest first</option>
             </select>
-          </label>
+            <span className="custom_select_arrow">
+              <SortIcon />
+            </span>
+          </div>
         </div>
         {/* add a CSS spinner here */}
         {isLoading ? (
