@@ -12,6 +12,7 @@
   --cyan: #17a2b8;
   --white: #fff;
   --lightGray: rgb(201, 200, 200);
+  --veryLightGray: rgb(236, 231, 231);
   --gray: #8f8b8b;
   --gray-dark: #343a40;
   --primary: #007bff;
@@ -121,6 +122,6 @@ body {
 
 /* default SVG icon components styling */
 .svg_icon_default {
-  width: 10px;
+  width: 8px;
   fill: var(--white);
 }

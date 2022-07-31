@@ -1,0 +1,56 @@
+.article_preview_container {
+  background-color: var(--veryLightGray);
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 5px;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 40% 1fr;
+}
+.article_preview_img {
+  border-radius: 3px;
+  padding: 0.2rem;
+}
+.article_preview_texts_container {
+  display: grid;
+  align-items: start;
+  grid-template-areas:
+    'ap1'
+    'ap2'
+    'ap3';
+  grid-template-columns: 1fr;
+}
+
+.article_preview_title {
+  grid-area: ap1;
+  font-size: 1rem;
+}
+.article_preview_date {
+  grid-area: ap2;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+.article_preview_preamble {
+  grid-area: ap3;
+  margin-top: 1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+@media only screen and (min-width: 576px) {
+  .article_preview_texts_container {
+    grid-template-areas:
+      'ap1 ap2'
+      'ap3 ap3';
+    grid-template-columns: 1fr auto;
+    justify-self: top;
+  }
+  .article_preview_title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+  .article_preview_date {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+    margin-top: 0.1rem;
+  }
+}
