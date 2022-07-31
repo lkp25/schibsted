@@ -2,6 +2,8 @@ import { FC, useState, useEffect } from 'react';
 import SortIcon from '../../assets/icons/SortIcon';
 import ArticlePreview from '../../components/articlePreview';
 import ErrorMessage from '../../components/errorMessage';
+import InfoMessage from '../../components/infoMessage';
+import Loader from '../../components/loader';
 import { getDateInMiliseconds } from '../../utils';
 import './Articles.css';
 
@@ -154,11 +156,14 @@ const Articles: FC = () => {
             </span>
           </div>
         </div>
-        {/* add a CSS spinner here */}
+
+        {/* display loader, api error, info msg  or successfully fetched articles */}
         {isLoading ? (
-          <div>loading</div>
+          <Loader />
         ) : apiResponseError ? (
           <ErrorMessage message={apiResponseError} />
+        ) : articlesToDisplay.length < 1 ? (
+          <InfoMessage message="please select which categories you want to see articles from" />
         ) : (
           <div className="articles__list">
             {articlesToDisplay.sort(getSortMethod()).map((article) => {

@@ -18,7 +18,8 @@ const ArticlePreview: FC<ArticlePreviewProps> = ({ article }) => {
         <h2 className="article_preview_title">{article.title}</h2>
         <h3 className="article_preview_date">{article.date}</h3>
         {/* optional preamble, will render on small mobile screens only */}
-        {/* This will not appear/disappear when window is being resized, but its fine here */}
+        {/* This will not appear/disappear when window is being resized */}
+        {/* should probably be handled with window resize event listener, but here its fine */}
         {window.matchMedia(`all and (max-width: 576px)`).matches ? null : (
           <p className="article_preview_preamble">{article.preamble}</p>
         )}

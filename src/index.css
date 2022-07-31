@@ -3,7 +3,8 @@
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
-  --errorBackgroundColor: rgb(190, 59, 59);
+  --errorBackgroundColor: rgb(210, 92, 92);
+  --infoBackgroundColor: #e7f4f6;
   --red: #dc3545;
   --orange: #fd7e14;
   --yellow: #ffc107;
@@ -124,4 +125,32 @@ body {
 .svg_icon_default {
   width: 8px;
   fill: var(--white);
+}
+
+/* animated loader */
+.loader_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--primary);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
