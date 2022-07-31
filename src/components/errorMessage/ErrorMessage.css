@@ -1,0 +1,6 @@
+.errorMsg {
+  background-color: var(--errorBackgroundColor);
+  color: var(--white);
+  padding: 2rem;
+  border-radius: 5px;
+}
