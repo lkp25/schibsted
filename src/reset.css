@@ -12,11 +12,13 @@ h2,
 h3,
 h4,
 p,
+ul,
 figure,
 blockquote,
 dl,
 dd {
   margin: 0;
+  padding: 0;
 }
 
 /* Remove list styles on ul, ol elements  */

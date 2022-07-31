@@ -1,9 +1,39 @@
 .articles__title {
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   background: var(--cyan);
   color: var(--white);
   letter-spacing: var(--spacing);
 }
 
-.articles__controls {
+.articles__container {
+  padding: 1rem 1rem;
+  display: grid;
+  grid-template-areas:
+    'a b'
+    'c c';
+  grid-template-columns: 1fr auto;
+}
+
+@media only screen and (min-width: 576px) {
+  .articles__container {
+    grid-template-areas:
+      'b b'
+      'a c';
+    grid-template-columns: 20% auto;
+  }
+}
+
+.articles__data_sources {
+  grid-area: a;
+  padding: var(--commonPadding);
+}
+.articles__date_sorting {
+  grid-area: b;
+  justify-self: end;
+  padding: var(--commonPadding);
+}
+
+.articles__list {
+  grid-area: c;
+  padding: var(--commonPadding);
 }

@@ -1,5 +1,4 @@
 :root {
-  --spacing: 0.1rem;
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -29,6 +28,8 @@
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --commonPadding: 0.5rem 0.5rem;
+  --spacing: 0.1rem;
 }
 
 body {

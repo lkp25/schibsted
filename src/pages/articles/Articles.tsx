@@ -99,39 +99,42 @@ const Articles: FC = () => {
     <>
       <h1 className="articles__title">Schibsted Articles</h1>
 
-      <section className="articles__controls">
-        <span>data sources:</span>
-        {/* dynamically display checkboxes for all categories */}
-        <ul>
-          {KNOWN_CATEGORIES.map((category) => {
-            return (
-              <li key={category}>
-                <label htmlFor={`${category}_checkbox`}>
-                  <input
-                    value={category}
-                    onChange={(event) => {
-                      const currentCategory = event.target.value;
-                      setCategories(
-                        categories.includes(currentCategory)
-                          ? categories.filter(
-                              (category) => category !== currentCategory,
-                            )
-                          : [...categories, currentCategory],
-                      );
-                    }}
-                    type="checkbox"
-                    name="categories_filter"
-                    id={`${category}_checkbox`}
-                  />
-                  {category}
-                </label>
-              </li>
-            );
-          })}
-        </ul>
-        <div>
+      <section className="articles__container">
+        <div className="articles__data_sources">
+          <ul>
+            data sources:
+            {/* dynamically display checkboxes for all categories */}
+            {KNOWN_CATEGORIES.map((category) => {
+              return (
+                <li key={category}>
+                  <label htmlFor={`${category}_checkbox`}>
+                    <input
+                      value={category}
+                      onChange={(event) => {
+                        const currentCategory = event.target.value;
+                        setCategories(
+                          categories.includes(currentCategory)
+                            ? categories.filter(
+                                (category) => category !== currentCategory,
+                              )
+                            : [...categories, currentCategory],
+                        );
+                      }}
+                      type="checkbox"
+                      name="categories_filter"
+                      id={`${category}_checkbox`}
+                    />
+                    {category}
+                  </label>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="articles__date_sorting">
           <label htmlFor="date_select">
             Sort by date:
+            <br />
             <select
               defaultValue={'desc'}
               name="date_select"
@@ -145,20 +148,19 @@ const Articles: FC = () => {
             </select>
           </label>
         </div>
+        {/* add a CSS spinner here */}
+        {isLoading ? (
+          <div>loading</div>
+        ) : apiResponseError ? (
+          <ErrorMessage message={apiResponseError} />
+        ) : (
+          <div className="articles__list">
+            {articlesToDisplay.sort(getSortMethod()).map((article) => {
+              return <ArticlePreview key={article.id} article={article} />;
+            })}
+          </div>
+        )}
       </section>
-
-      {/* add a CSS spinner here */}
-      {isLoading ? (
-        <div>loading</div>
-      ) : apiResponseError ? (
-        <ErrorMessage message={apiResponseError} />
-      ) : (
-        <>
-          {articlesToDisplay.sort(getSortMethod()).map((article) => {
-            return <ArticlePreview key={article.id} article={article} />;
-          })}
-        </>
-      )}
     </>
   );
 };
