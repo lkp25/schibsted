@@ -1,0 +1,9 @@
+.articles__title {
+  padding: 1rem 2rem;
+  background: var(--cyan);
+  color: var(--white);
+  letter-spacing: var(--spacing);
+}
+
+.articles__controls {
+}

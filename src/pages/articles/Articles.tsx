@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import ArticlePreview from '../../components/articlePreview';
 import ErrorMessage from '../../components/errorMessage';
 import { getDateInMiliseconds } from '../../utils';
+import './Articles.css';
 
 export interface Article {
   id: number;
@@ -96,10 +97,10 @@ const Articles: FC = () => {
 
   return (
     <>
-      <h1>Schibsted Articles</h1>
+      <h1 className="articles__title">Schibsted Articles</h1>
 
-      <div>
-        <div>data sources:</div>
+      <section className="articles__controls">
+        <span>data sources:</span>
         {/* dynamically display checkboxes for all categories */}
         <ul>
           {KNOWN_CATEGORIES.map((category) => {
@@ -128,23 +129,23 @@ const Articles: FC = () => {
             );
           })}
         </ul>
-      </div>
-      <div>
-        <label htmlFor="date_select">
-          Sort by date:
-          <select
-            defaultValue={'desc'}
-            name="date_select"
-            id="date_select"
-            onChange={(event) => {
-              setSortState(event.target.value);
-            }}
-          >
-            <option value="asc">newest first</option>
-            <option value="desc">oldest first</option>
-          </select>
-        </label>
-      </div>
+        <div>
+          <label htmlFor="date_select">
+            Sort by date:
+            <select
+              defaultValue={'desc'}
+              name="date_select"
+              id="date_select"
+              onChange={(event) => {
+                setSortState(event.target.value);
+              }}
+            >
+              <option value="asc">newest first</option>
+              <option value="desc">oldest first</option>
+            </select>
+          </label>
+        </div>
+      </section>
 
       {/* add a CSS spinner here */}
       {isLoading ? (
