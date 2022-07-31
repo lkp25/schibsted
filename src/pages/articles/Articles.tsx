@@ -101,13 +101,13 @@ const Articles: FC = () => {
 
       <section className="articles__container">
         <div className="articles__data_sources">
+          <span className="span_bold">Data sources</span>:
           <ul>
-            data sources:
             {/* dynamically display checkboxes for all categories */}
             {KNOWN_CATEGORIES.map((category) => {
               return (
                 <li key={category}>
-                  <label htmlFor={`${category}_checkbox`}>
+                  <div className="custom_checkbox_container">
                     <input
                       value={category}
                       onChange={(event) => {
@@ -124,16 +124,17 @@ const Articles: FC = () => {
                       name="categories_filter"
                       id={`${category}_checkbox`}
                     />
-                    {category}
-                  </label>
+                    {/* label must be after input for custom styling to work */}
+                    <label htmlFor={`${category}_checkbox`}> {category}</label>
+                  </div>
                 </li>
               );
             })}
           </ul>
         </div>
         <div className="articles__date_sorting">
+          <span className="span_bold"> Sort by date: </span>
           <label htmlFor="date_select">
-            Sort by date:
             <br />
             <select
               defaultValue={'desc'}

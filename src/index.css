@@ -10,7 +10,7 @@
   --teal: #20c997;
   --cyan: #17a2b8;
   --white: #fff;
-  --gray: #6c757d;
+  --gray: #8f8b8b;
   --gray-dark: #343a40;
   --primary: #007bff;
   --secondary: #6c757d;
@@ -29,9 +29,57 @@
     Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --commonPadding: 0.5rem 0.5rem;
-  --spacing: 0.1rem;
+  --spacing: 0.08rem;
 }
 
 body {
   font-family: var(--font-family-sans-serif);
+  color: var(--gray-dark);
+}
+
+.span_bold {
+  font-weight: bold;
+}
+
+/* complex custom checkboxes styling */
+.custom_checkbox_container {
+  display: flex;
+  align-items: center;
+}
+.custom_checkbox_container label {
+  cursor: pointer;
+  display: flex;
+  font-style: normal;
+  letter-spacing: var(--spacing);
+  padding: 0.2rem 0;
+  text-transform: capitalize;
+}
+.custom_checkbox_container input[type='checkbox'] {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+}
+
+.custom_checkbox_container label::before {
+  content: '';
+  width: 1.3rem;
+  height: 1.3rem;
+  border: 1px solid var(--gray);
+  border-radius: 3px;
+  margin-right: 0.5rem;
+}
+.custom_checkbox_container label:hover::before,
+.custom_checkbox_container input[type='checkbox']:hover + label::before {
+  background-color: var(--gray);
+}
+.custom_checkbox_container input[type='checkbox']:focus + label::before {
+  box-shadow: 0 0 10px 1px rgb(111, 110, 110);
+}
+.custom_checkbox_container input[type='checkbox']:checked + label::before {
+  content: '\002714';
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
 }
