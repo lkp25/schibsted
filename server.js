@@ -21,15 +21,15 @@ const PORT = 6010;
 function requestHandler(req, res) {
     let content;
     let status;
-    if (Math.random() > 0.1) {
+    if (Math.random() > 0.5) {
         if (req.url === '/articles/sports') {
-            content = {articles: fakeArticlesData.filter(a => a.category === 'sport')};
+            content = { articles: fakeArticlesData.filter(a => a.category === 'sport') };
             status = 200;
         } else if (req.url === '/articles/fashion') {
-            content = {articles: fakeArticlesData.filter(a => a.category === 'fashion')};
+            content = { articles: fakeArticlesData.filter(a => a.category === 'fashion') };
             status = 200;
         } else {
-            content = {message: 'Not found'};
+            content = { message: 'Not found' };
             status = 404;
         }
     } else {

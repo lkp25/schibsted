@@ -1,0 +1,156 @@
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --errorBackgroundColor: rgb(210, 92, 92);
+  --infoBackgroundColor: #e7f4f6;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --lightGray: rgb(201, 200, 200);
+  --veryLightGray: rgb(236, 231, 231);
+  --gray: #8f8b8b;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --commonPadding: 0.5rem 0.5rem;
+  --spacing: 0.08rem;
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  color: var(--gray-dark);
+}
+
+.span_bold {
+  font-weight: bold;
+}
+
+/* complex custom checkboxes styling */
+.custom_checkbox_container {
+  display: flex;
+  align-items: center;
+  margin-top: 0.3rem;
+}
+.custom_checkbox_container label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  letter-spacing: var(--spacing);
+  padding: 0.2rem 0;
+  text-transform: capitalize;
+}
+.custom_checkbox_container input[type='checkbox'] {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+}
+
+.custom_checkbox_container label::before {
+  content: '';
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--gray);
+  border-radius: 3px;
+  margin-right: 0.5rem;
+}
+.custom_checkbox_container label:hover::before,
+.custom_checkbox_container input[type='checkbox']:hover + label::before {
+  background-color: var(--gray);
+}
+.custom_checkbox_container input[type='checkbox']:focus + label::before {
+  box-shadow: 0 0 10px 1px rgb(111, 110, 110);
+}
+.custom_checkbox_container input[type='checkbox']:checked + label::before {
+  content: '\002714';
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+}
+
+/* custom select element styling */
+.custom_select_container {
+  margin-top: 0.3rem;
+  position: relative;
+}
+.custom_select {
+  padding: 0.1rem 1.5rem 0.1rem 0.4rem;
+  border: 1px solid var(--lightGray);
+  border-radius: 3px;
+}
+.custom_select:focus {
+  background-color: var(--lightGray);
+  color: var(--white);
+}
+.custom_select_arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray);
+  width: 1.2rem;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 3px;
+}
+.select_sort_icon {
+  width: 10px;
+}
+
+/* default SVG icon components styling */
+.svg_icon_default {
+  width: 8px;
+  fill: var(--white);
+}
+
+/* animated loader */
+.loader_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--primary);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
